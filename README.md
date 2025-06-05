@@ -26,28 +26,17 @@ Este repositorio contiene un módulo en Python para calcular el spread de equili
    - En mercados con inversores con información privada, los market makers amplían el spread para protegerse del riesgo de vender caro o comprar barato.
 
 2. **Modelo Copeland & Galai (1983)**  
-   - Asume que el valor fundamental $V$ del activo sigue una distribución conocida (Normal o Exponencial).  
-   - Los traders son informados con probabilidad $\pi$ y desinformados con probabilidad $1-\pi$.  
-   - El market maker fija un spread $S$ y cotiza un precio ask  
-     a = \mathbb{E}[V] + \frac{S}{2} 
+   - Asume que el valor fundamental V del activo sigue una distribución conocida (Normal o Exponencial).  
+   - Los traders son informados con probabilidad π y desinformados con probabilidad 1 − π.  
+   - El market maker fija un spread S y cotiza un precio ask  
+     a = E[V] + S/2  
      y un precio bid  
-     $$
-       b = \mathbb{E}[V] - \frac{S}{2}.
-     $$  
-   - El **beneficio esperado** del market maker, al operar al ask (vendiendo) y al bid (comprando), se anula en equilibrio:
-     $$
-       0 = \frac{1}{2} \Bigl[
-         \underbrace{(1-\pi)\bigl(a - \mathbb{E}[V]\bigr) + \pi\bigl(a - \mathbb{E}[V \mid V > a]\bigr)}_{\text{beneficio en Ask}}
-         \;+\;
-         \underbrace{(1-\pi)\bigl(\mathbb{E}[V] - b\bigr) + \pi\bigl(\mathbb{E}[V \mid V < b] - b\bigr)}_{\text{beneficio en Bid}}
-       \Bigr].
-     $$
-   - De esta ecuación se obtiene numéricamente $S^*$. Luego,
-     $$
-       \text{ask} = \mathbb{E}[V] + \frac{S^*}{2}, 
-       \quad 
-       \text{bid} = \mathbb{E}[V] - \frac{S^*}{2}.
-     $$
+     b = E[V] − S/2.  
+   - El beneficio esperado del market maker, al operar al ask (vendiendo) y al bid (comprando), se anula en equilibrio:  
+     0 = ½ [ (1 − π)·(a − E[V]) + π·(a − E[V | V > a])   
+      + (1 − π)·(E[V] − b) + π·(E[V | V < b] − b) ].  
+   - De esta ecuación se obtiene numéricamente S*. Luego:  
+     ask = E[V] + S*/2, bid = E[V] − S*/2.  
    - **Distribución Normal**:  
      - $\displaystyle \mathbb{E}[V] = \mu.$  
      - $\displaystyle \mathbb{E}[V \mid V > a] = \mu + \sigma \,\frac{\varphi\!\bigl(\tfrac{a - \mu}{\sigma}\bigr)}{1 - \Phi\!\bigl(\tfrac{a - \mu}{\sigma}\bigr)}.$  
