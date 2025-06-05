@@ -29,8 +29,7 @@ Este repositorio contiene un módulo en Python para calcular el spread de equili
    - Asume que el valor fundamental $V$ del activo sigue una distribución conocida (Normal o Exponencial).  
    - Los traders son informados con probabilidad $\pi$ y desinformados con probabilidad $1-\pi$.  
    - El market maker fija un spread $S$ y cotiza un precio ask  
-     $ a = \mathbb{E}[V] + \frac{S}{2}
-     $  
+     a = \mathbb{E}[V] + \frac{S}{2} 
      y un precio bid  
      $$
        b = \mathbb{E}[V] - \frac{S}{2}.
