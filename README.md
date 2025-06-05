@@ -28,31 +28,39 @@ Este repositorio contiene un módulo en Python para calcular el spread de equili
    - En mercados con inversores con información privada, los market makers amplían el spread para protegerse del riesgo de vender caro o comprar barato.
 
 2. **Modelo Copeland & Galai (1983)**  
-   - Asume que el valor fundamental \(V\) del activo sigue una distribución conocida (Normal o Exponencial).  
-   - Los traders son informados con probabilidad \(\pi\) y desinformados con probabilidad \(1-\pi\).  
-   - El market maker fija un spread \(S\) y cotiza un precio ask \(a = \mathbb{E}[V] + S/2\) y bid \(b = \mathbb{E}[V] - S/2\).  
-   - El **beneficio esperado** del market maker al operar al ask (vendiendo) y al bid (comprando) se anula en equilibrio:
-     \[
-       0 \;=\; \tfrac{1}{2}\Bigl[\underbrace{(1-\pi)(a - \mathbb{E}[V]) + \pi\bigl(a - \mathbb{E}[V \mid V > a]\bigr)}_{\text{beneficio en Ask}} 
-       \;+\; 
-       \underbrace{(1-\pi)(\mathbb{E}[V] - b) + \pi\bigl(\mathbb{E}[V \mid V < b] - b\bigr)}_{\text{beneficio en Bid}}\Bigr].
-     \]
-   - De esta ecuación se resuelve numéricamente \(S^*\). Luego, 
-     \[
-       \text{ask} = \mathbb{E}[V] + \tfrac{S^*}{2}, 
+   - Asume que el valor fundamental $V$ del activo sigue una distribución conocida (Normal o Exponencial).  
+   - Los traders son informados con probabilidad $\pi$ y desinformados con probabilidad $1-\pi$.  
+   - El market maker fija un spread $S$ y cotiza un precio ask  
+     $$
+       a = \mathbb{E}[V] + \frac{S}{2}
+     $$  
+     y un precio bid  
+     $$
+       b = \mathbb{E}[V] - \frac{S}{2}.
+     $$  
+   - El **beneficio esperado** del market maker, al operar al ask (vendiendo) y al bid (comprando), se anula en equilibrio:
+     $$
+       0 = \frac{1}{2} \Bigl[
+         \underbrace{(1-\pi)\bigl(a - \mathbb{E}[V]\bigr) + \pi\bigl(a - \mathbb{E}[V \mid V > a]\bigr)}_{\text{beneficio en Ask}}
+         \;+\;
+         \underbrace{(1-\pi)\bigl(\mathbb{E}[V] - b\bigr) + \pi\bigl(\mathbb{E}[V \mid V < b] - b\bigr)}_{\text{beneficio en Bid}}
+       \Bigr].
+     $$
+   - De esta ecuación se obtiene numéricamente $S^*$. Luego,
+     $$
+       \text{ask} = \mathbb{E}[V] + \frac{S^*}{2}, 
        \quad 
-       \text{bid} = \mathbb{E}[V] - \tfrac{S^*}{2}.
-     \]
+       \text{bid} = \mathbb{E}[V] - \frac{S^*}{2}.
+     $$
    - **Distribución Normal**:  
-     - \(\mathbb{E}[V] = \mu\).  
-     - \(\mathbb{E}[V \mid V > a] = \mu + \sigma \frac{\varphi\bigl((a-\mu)/\sigma\bigr)}{1 - \Phi\bigl((a - \mu)/\sigma\bigr)}\).  
-     - \(\mathbb{E}[V \mid V < b] = \mu - \sigma \frac{\varphi\bigl((\mu - b)/\sigma\bigr)}{\Phi\bigl((\mu - b)/\sigma\bigr)}\).  
-   - **Distribución Exponencial** (tasa λ):  
-     - \(\mathbb{E}[V] = 1/\lambda\).  
-     - \(\mathbb{E}[V \mid V > a] = a + 1/\lambda.\)  
-     - \(\mathbb{E}[V \mid V < b] = \frac{1 - e^{-\lambda b}(1 + \lambda b)}{\lambda\,\bigl(1 - e^{-\lambda b}\bigr)}.\)
+     - $\displaystyle \mathbb{E}[V] = \mu.$  
+     - $\displaystyle \mathbb{E}[V \mid V > a] = \mu + \sigma \,\frac{\varphi\!\bigl(\tfrac{a - \mu}{\sigma}\bigr)}{1 - \Phi\!\bigl(\tfrac{a - \mu}{\sigma}\bigr)}.$  
+     - $\displaystyle \mathbb{E}[V \mid V < b] = \mu - \sigma \,\frac{\varphi\!\bigl(\tfrac{\mu - b}{\sigma}\bigr)}{\Phi\!\bigl(\tfrac{\mu - b}{\sigma}\bigr)}.$  
+   - **Distribución Exponencial** (tasa $\lambda$):  
+     - $\displaystyle \mathbb{E}[V] = \frac{1}{\lambda}.$  
+     - $\displaystyle \mathbb{E}[V \mid V > a] = a + \frac{1}{\lambda}.$  
+     - $\displaystyle \mathbb{E}[V \mid V < b] = \frac{\,1 - e^{-\lambda b}(1 + \lambda b)\,}{\lambda\bigl(1 - e^{-\lambda b}\bigr)}.$  
 
----
 
 ## 3. Estructura del paquete
 
